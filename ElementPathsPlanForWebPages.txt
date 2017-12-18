@@ -1,0 +1,108 @@
+Two webpages to follow and automate:
+
+example of expected element and copying and pasting Xpath from the Inspecting Elements for Coding
+//*[@id="steps_2"]/ol/li[5]/div[3]
+Image example:
+//*[@id="img_981fe74fb3"]
+
+
+1. 
+http://automationpractice.com/index.php
+--Entering content into the search bar:
+Element <form>
+-<input>Search bar text box- name="search_query"
+                    id="search_query_top"
+XML: //*[@id="search_query_top"]
+
+-<button>Search bar button - name="submit_search"
+XML: //*[@id="searchbox"]/button
+
+--Element to check for result on Search-Webpage after executing Enter/Return on "submit_search"
+-Checking search display is based on text input
+<div> Find bar containing results: id="center_colunmn"
+XML: //*[@id="center_column"]
+If{
+	If(result (<span>class="heading-counter" > 0){
+	//Making sure top result matches correct input.
+	Validate that #search_query_top.value .contains(#search_query_top.value)
+	}
+	
+else {
+	//Making sure top result matches correct input in case there are no search results.
+	If(<p> Class="alret alert-warning".contains(search input))
+        Validate that "#alert alert-warning".contains(#search_query_top.value)
+	}
+}
+else{
+Result match input fails.
+}
+
+(Returning back to http://automationpractice.com/index.php) Last example to find elements with unique ids can reassign data based on id obtained.
+--Add to cart and view more 
+-Add any item from home featured products :
+<ul> Product Lists - id="homefeatured"
+XML: //*[@id="homefeatured"]
+
+(Picking the first item in the list):
+<a> The Add to Cart Button - data-id-product="1"
+XML: //*[@id="homefeatured"]/li[1]/div/div[2]/div[2]/a[1]
+-Assign webElement to product url/href and title based on data-id-product
+XML: //*[@id="homefeatured"]/li[1]/div/div[2]/h5/a
+
+-Check that item added to cart and content inside cart_block are a match:
+Use a for-each-loop for each data-id in:
+<div> class="cart_block_list" - data-id="cart_block_product_1_1_42355
+XML: //*[@id="header"]/div[3]/div/div/div[3]/div/div/div/div/dl/dt
+Compare href/url and title is a match to data stored in the homefeatured id of data-id-product are a match.
+
+
+
+
+
+
+
+2.
+http://demoqa.com/sample-post2/
+
+--Inspect and add comments to post.
+-<form> Comment Block - id="commentform"
+XML: //*[@id="commentform"]
+
+-<input> Enter a name - name="author" id="author"
+XML: //*[@id="author"]
+
+-<input> Enter an email - name="email" id="email"
+XML: //*[@id="email"]
+
+-<input> Enter a website - name="url" id="url"
+XML: //*[@id="url"]
+
+-<textarea> Type your comment - name="comment" id="comment"
+Store text entered as a string.
+XML://*[@id="comment"]
+
+-<button> Post your comment - name="submit" id="submit"
+XML: //*[@id="submit"]
+
+-<article> Checking posted comment id="div-comment-464"
+XML: //*[@id="div-comment-464"]
+
+-<div> Compare that text in posted comment equals to String value when first entered: class="comment-content panel-body"> <p> (any text entered when creating comment.)
+XML: //*[@id="div-comment-464"]/div[2]/p
+
+
+
+--Return back to main sample posts webpage:
+-<ul> Reuturn to main sample post - id="nav-below"
+XML: //*[@id="nav-below"]
+-Select the link to return back to main sample post webpage - href="http://demoga.com/sample-post/"
+XML: //*[@id="nav-below"]/li[2]/a
+
+
+--Return home back to main page of the site:
+-<li> Selecting the Home section in the top menu id="menu-item-38"
+XML: //*[@id="menu-item-38"]
+
+-<a> Set a webElement value to href value. href="http://demoga.com/"
+Then validate that the new webpage matches the href value.
+XML: //*[@id="menu-item-38"]/a
